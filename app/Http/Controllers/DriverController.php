@@ -93,12 +93,14 @@ class DriverController extends Controller
                 ->orWhere('tel_o', 'like', '%' . $value . '%')
                 ->orWhere('car_number', 'like', '%' . $value . '%')
                 ->get();
-            return response()->json(["drivers"=>$drivers]);
+            return response()->json([
+                'view' => view('admin.drivers.search', compact('drivers'))->render()
+            ]);
 
         }
         else {
             $drivers = Driver::where('id', '<', -1)->get();
-            return response()->json(["drivers"=>[]]);
+            return response()->json(["view"=>""]);
         }
     }
 
