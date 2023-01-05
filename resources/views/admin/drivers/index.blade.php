@@ -130,4 +130,29 @@
 
         });
     </script>
+    {{--    search--}}
+    <script>
+        let elbody=$('#table_body');
+        function searchDrivers() {
+            console.log('ok');
+            let search = $('#search').val()
+            if (!search.trim()) {
+                $('form').submit();
+                return;
+            }
+            if (search.length > 1) {
+                axios.get('{{url('/')}}' + '/search', {
+                    params: {
+                        search: search
+                    }
+                }).then(function (response) {
+                    console.log(response);
+                    elbody.html(response.data.view);
+                    // eltable.replaceChild(response.data.view,elbody);
+                }).catch(function (error) {
+                        console.log(error);
+                    })
+            }
+        }
+    </script>
 @endsection
